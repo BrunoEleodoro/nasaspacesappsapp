@@ -1,4 +1,6 @@
 class UrlHelper {
+  static var storage = "https://ecoquest-storage.herokuapp.com/upload";
+
   static var baseUrl =
       "https://serverless-master-ecoquest.brunoeleodoroecoquest.now.sh";
 
@@ -12,6 +14,11 @@ class UrlHelper {
       baseUrl + "/orcamentoConfig/listarOrcamentoConfig";
   static var atualizarOrcamentoConfig =
       baseUrl + "/orcamentoConfig/atualizarOrcamentoConfig";
+
+  static var desafioCliente =
+      baseUrl + "/desafio_cliente/listarDesafioClientes";
+
+  static var desafios = baseUrl + "/desafio/listarDesafios";
 
   // static var criar_evento = baseUrl + "/evento/create";
   // static var atualizar_evento = baseUrl + "/evento/update";

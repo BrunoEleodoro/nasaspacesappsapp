@@ -5,5 +5,6 @@ import 'dart:io';
 var token = "";
 var uuid = "";
 var url = "";
+var email = "";
 
 var dados_evento = {};

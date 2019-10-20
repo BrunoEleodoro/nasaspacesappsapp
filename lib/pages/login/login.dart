@@ -24,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
           {'email': usuarioController.text, 'password': senhaController.text});
       if (res['token'] != null) {
         sharedPreferences.setString('token', res['token']);
+        sharedPreferences.setString('email', usuarioController.text);
         globals.token = res['token'];
         Navigator.pushReplacementNamed(context, '/home');
       } else {
@@ -43,8 +44,10 @@ class _LoginPageState extends State<LoginPage> {
   void loadData() async {
     sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
+    var email = sharedPreferences.getString('email');
     if (token != null) {
       globals.token = token;
+      globals.email = email;
       if (!await ApiHelper.tokenExpired(context)) {
         Navigator.pushReplacementNamed(context, '/home');
       }
