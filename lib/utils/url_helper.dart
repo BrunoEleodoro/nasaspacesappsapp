@@ -18,6 +18,9 @@ class UrlHelper {
   static var desafioCliente =
       baseUrl + "/desafio_cliente/listarDesafioClientes";
 
+  static var atualizarDesafioCliente =
+      baseUrl + "/desafio_cliente/atualizarDesafioCliente";
+
   static var desafios = baseUrl + "/desafio/listarDesafios";
 
   // static var criar_evento = baseUrl + "/evento/create";

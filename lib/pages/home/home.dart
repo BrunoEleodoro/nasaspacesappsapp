@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:app/pages/home/participar/participar.dart';
+import 'package:app/pages/home/recompensas/recompensas.dart';
+import 'package:app/pages/template.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app/pages/default_pages/failure/failure.dart';
@@ -31,8 +35,10 @@ class _HomePageState extends State<HomePage>
     QuarterSales('Q4', 55000, charts.ColorUtil.fromDartColor(Colors.purple)),
   ];
 
+  var helperList = new List();
   var desafios = [];
   var desafio_clientes = [];
+  var original_data;
 
   AnimationController _controller;
   Animation<double> _animation;
@@ -82,8 +88,15 @@ class _HomePageState extends State<HomePage>
     if (res['status'] == 200) {
       // Navigator.pushReplacementNamed(context, '/home');
       setState(() {
-        desafio_clientes = res['response'];
+        desafio_clientes = res['response'][0]['desafios'];
+        original_data = res['response'];
       });
+      helperList.clear();
+      var i = 0;
+      while (i < desafio_clientes.length) {
+        helperList.add(desafio_clientes[i]['_id']);
+        i++;
+      }
     } else {
       Provider.of<FailureNotifier>(context, listen: true)
           .displayFailure("Houston we have a problem");
@@ -106,7 +119,6 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     // loadData();
-    // print(desafio_clientes);
     return Scaffold(
       body: PageView.builder(
         controller: pageController,
@@ -219,14 +231,21 @@ class _HomePageState extends State<HomePage>
                       shrinkWrap: true,
                       itemCount: desafios.length,
                       itemBuilder: (context, index) {
+                        // print(jsonEncode(desafio_clientes).contains(other));
                         return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ParticiparPage(
-                                        desafio: desafios[index]),
-                                  ));
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => TemplatePage(
+                                        child: Participar(
+                                            desafio: desafios[index],
+                                            desafios: desafios,
+                                            helperList: helperList,
+                                            desafio_clientes: desafio_clientes,
+                                            original_data: original_data))),
+                              );
+                              loadData();
                             },
                             child: Container(
                                 width: double.maxFinite,
@@ -278,7 +297,36 @@ class _HomePageState extends State<HomePage>
                                                         " pontos",
                                                     style:
                                                         TextStyle(fontSize: 20),
+                                                  ),
+                                                  Divider(),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: <Widget>[
+                                                      Text('Status:'),
+                                                      Text(
+                                                        (helperList.indexOf(
+                                                                    desafios[
+                                                                            index]
+                                                                        [
+                                                                        '_id']) !=
+                                                                -1)
+                                                            ? "Em progresso"
+                                                            : "Disponível",
+                                                        style: TextStyle(
+                                                            color: (helperList.indexOf(
+                                                                        desafios[index]
+                                                                            [
+                                                                            '_id']) !=
+                                                                    -1)
+                                                                ? Colors
+                                                                    .greenAccent
+                                                                : Colors.white),
+                                                      )
+                                                    ],
                                                   )
+                                                  // helperList.indexOf(desafios[index]['_id'])
                                                 ],
                                               ),
                                             )
@@ -294,6 +342,8 @@ class _HomePageState extends State<HomePage>
                 ),
               ],
             )));
+          } else if (index == 1) {
+            return RecompensasPage();
           }
           return Container(
             child: Center(
@@ -325,12 +375,8 @@ class _HomePageState extends State<HomePage>
             title: Text('RECOMPENSAS'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            title: Text('PESQUISAR'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings_backup_restore),
-            title: Text('CONTRAPROPOSTAS'),
+            icon: Icon(Icons.rate_review),
+            title: Text('PONTOS'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

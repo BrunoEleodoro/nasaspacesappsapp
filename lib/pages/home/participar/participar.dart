@@ -8,19 +8,38 @@ import 'package:app/utils/url_helper.dart';
 import 'package:app/utils/globals.dart' as globals;
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 
-class ParticiparPage extends StatefulWidget {
-  var desafio = {};
-  var desafios = {};
-  ParticiparPage({this.desafio, this.desafios});
+class Participar extends StatefulWidget {
+  var desafio;
+  var desafios = new List();
+  var desafio_clientes = new List();
+  var helperList = new List();
+  var original_data;
+
+  Participar(
+      {this.desafio,
+      this.desafios,
+      this.helperList,
+      this.desafio_clientes,
+      this.original_data});
+  // Participar({this.desafios});
   @override
-  _ParticiparPageState createState() => _ParticiparPageState();
+  _ParticiparState createState() => _ParticiparState();
 }
 
-class _ParticiparPageState extends State<ParticiparPage> {
+class _ParticiparState extends State<Participar> {
   void participarClicked() async {
+    var object = widget.original_data;
+    print('participarClicked');
+    object[0]['desafios'].add(widget.desafio);
+
+    var finalObject = Map<String, dynamic>();
+    finalObject['email'] = object[0]['email'];
+    finalObject['desafios'] = object[0]['desafios'];
+    finalObject['id'] = object[0]['_id'];
+
     Provider.of<LoadingNotifier>(context, listen: true).displayLoading();
     var res = await ApiHelper.postRequest(
-        context, UrlHelper.desafioCliente, {'email': globals.email});
+        context, UrlHelper.atualizarDesafioCliente, finalObject);
     // print(res['response'][0]);
     if (res['status'] == 200) {
       // Navigator.pushReplacementNamed(context, '/home');
@@ -58,9 +77,11 @@ class _ParticiparPageState extends State<ParticiparPage> {
                 children: <Widget>[
                   Center(
                     child: Text(
-                      widget.desafio['pontos'],
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      widget.desafio['pontos'] + " pontos",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.greenAccent),
                     ),
                   ),
                   SizedBox(

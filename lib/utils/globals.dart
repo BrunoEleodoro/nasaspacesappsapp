@@ -8,3 +8,5 @@ var url = "";
 var email = "";
 
 var dados_evento = {};
+var selected = {};
+var helpers;
