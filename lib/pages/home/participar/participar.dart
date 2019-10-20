@@ -112,6 +112,22 @@ class _ParticiparState extends State<Participar> {
                       child: Text('ACEITAR O DESAFIO'),
                     ),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: double.maxFinite,
+                    child: OutlineButton(
+                      // minWidth: double.maxFinite,
+                      color: Colors.orange,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      child: Text('CANCELAR'),
+                    ),
+                  ),
                   // participarClicked
                 ],
               ),

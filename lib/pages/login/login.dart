@@ -26,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
         sharedPreferences.setString('token', res['token']);
         sharedPreferences.setString('email', usuarioController.text);
         globals.token = res['token'];
+        globals.email = usuarioController.text;
         Navigator.pushReplacementNamed(context, '/home');
       } else {
         Provider.of<FailureNotifier>(context, listen: true)
@@ -76,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 2,
                 margin: EdgeInsets.only(top: 15),
                 decoration: BoxDecoration(
-                    color: Colors.purpleAccent,
+                    color: Colors.greenAccent,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
               ),
               SizedBox(
@@ -124,7 +125,10 @@ class _LoginPageState extends State<LoginPage> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5)),
                       onPressed: fazerLogin,
-                      child: Text('LOGIN'),
+                      child: Text(
+                        'LOGIN',
+                        style: TextStyle(color: Colors.black),
+                      ),
                       color: Theme.of(context).accentColor,
                       elevation: 5,
                     ),

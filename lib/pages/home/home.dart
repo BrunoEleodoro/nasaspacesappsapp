@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app/pages/home/dados/dados.dart';
 import 'package:app/pages/home/participar/participar.dart';
 import 'package:app/pages/home/pontos/pontos.dart';
 import 'package:app/pages/home/recompensas/recompensas.dart';
@@ -86,8 +87,10 @@ class _HomePageState extends State<HomePage>
     var res = await ApiHelper.postRequest(
         context, UrlHelper.desafioCliente, {'email': globals.email});
     // print(res['response'][0]);
+    print('globals.email=' + globals.email.toString());
     if (res['status'] == 200) {
       // Navigator.pushReplacementNamed(context, '/home');
+      print(res['response']);
       setState(() {
         desafio_clientes = res['response'][0]['desafios'];
         original_data = res['response'];
@@ -120,6 +123,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     // loadData();
+    //
     return Scaffold(
       body: PageView.builder(
         controller: pageController,
@@ -343,6 +347,8 @@ class _HomePageState extends State<HomePage>
             )));
           } else if (index == 2) {
             return PontosPage();
+          } else if (index == 3) {
+            return DadosPage();
           }
           return Container(
             child: Center(
@@ -378,8 +384,8 @@ class _HomePageState extends State<HomePage>
             title: Text('PONTOS'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('CONFIGURAÇÕES'),
+            icon: Icon(Icons.insert_chart),
+            title: Text('NASA'),
           ),
         ],
       ),

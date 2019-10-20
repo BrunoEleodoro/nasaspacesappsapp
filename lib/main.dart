@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
               fontFamily: 'ProximaNova',
-              primarySwatch: Colors.orange,
-              accentColor: Colors.orangeAccent,
+              primarySwatch: Colors.green,
+              accentColor: Colors.greenAccent,
               brightness: Brightness.dark),
           initialRoute: '/',
           routes: {

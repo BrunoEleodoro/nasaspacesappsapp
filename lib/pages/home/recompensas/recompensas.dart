@@ -19,16 +19,27 @@ class _RecompensasPageState extends State<RecompensasPage> {
     return Scaffold(
         body: SingleChildScrollView(
             child: Column(children: <Widget>[
+      SizedBox(
+        height: 50,
+      ),
+      Center(
+        child: Text('Recompensas', style: TextStyle(fontSize: 20)),
+      ),
+      SizedBox(
+        height: 20,
+      ),
       GridView.count(
-        //cria um grid com 2 colunas
         shrinkWrap: true,
         crossAxisCount: 2,
-        // Gera 100 Widgets que exibem o seu índice na lista
-        children: List.generate(100, (index) {
+        physics: NeverScrollableScrollPhysics(),
+        children: List.generate(10, (index) {
           return Center(
-            child: Text(
-              'Item $index',
-              style: Theme.of(context).textTheme.headline,
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.amber,
+              ),
+              margin: EdgeInsets.all(16),
             ),
           );
         }),
