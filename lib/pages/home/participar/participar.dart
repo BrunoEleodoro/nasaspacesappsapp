@@ -95,18 +95,29 @@ class _ParticiparState extends State<Participar> {
                     ),
                   ),
                   SizedBox(
+                    height: 10,
+                  ),
+                  Center(child: Text(widget.desafio['descricao'])),
+                  SizedBox(
                     height: 20,
                   ),
-                  Center(child: Text(widget.desafio['descricao']))
+                  Container(
+                    width: double.maxFinite,
+                    child: MaterialButton(
+                      // minWidth: double.maxFinite,
+                      color: Colors.orange,
+                      onPressed: () {},
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      child: Text('ACEITAR O DESAFIO'),
+                    ),
+                  ),
+                  // participarClicked
                 ],
               ),
             )
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: participarClicked,
-        child: Icon(Icons.add),
       ),
     );
   }

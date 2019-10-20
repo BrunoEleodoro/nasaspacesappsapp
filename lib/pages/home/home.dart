@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:app/pages/home/participar/participar.dart';
+import 'package:app/pages/home/pontos/pontos.dart';
 import 'package:app/pages/home/recompensas/recompensas.dart';
 import 'package:app/pages/template.dart';
 import 'package:flutter/material.dart';
@@ -295,8 +296,6 @@ class _HomePageState extends State<HomePage>
                                                   Text(
                                                     desafios[index]['pontos'] +
                                                         " pontos",
-                                                    style:
-                                                        TextStyle(fontSize: 20),
                                                   ),
                                                   Divider(),
                                                   Row(
@@ -342,8 +341,8 @@ class _HomePageState extends State<HomePage>
                 ),
               ],
             )));
-          } else if (index == 1) {
-            return RecompensasPage();
+          } else if (index == 2) {
+            return PontosPage();
           }
           return Container(
             child: Center(
