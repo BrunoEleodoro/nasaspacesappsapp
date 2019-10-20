@@ -1,3 +1,4 @@
+import 'package:app/pages/home/participar/participar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app/pages/default_pages/failure/failure.dart';
@@ -105,7 +106,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     // loadData();
-    print(desafio_clientes);
+    // print(desafio_clientes);
     return Scaffold(
       body: PageView.builder(
         controller: pageController,
@@ -218,64 +219,75 @@ class _HomePageState extends State<HomePage>
                       shrinkWrap: true,
                       itemCount: desafios.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                            width: double.maxFinite,
-                            height: 180,
-                            child: Card(
-                              child: Padding(
-                                padding: EdgeInsets.all(16),
-                                child: Column(
-                                  children: <Widget>[
-                                    Row(
+                        return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ParticiparPage(
+                                        desafio: desafios[index]),
+                                  ));
+                            },
+                            child: Container(
+                                width: double.maxFinite,
+                                height: 180,
+                                child: Card(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(16),
+                                    child: Column(
                                       children: <Widget>[
-                                        Expanded(
-                                            flex: 4,
-                                            child: Container(
-                                              width: double.maxFinite,
-                                              height: 100,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(5)),
-                                                  image: DecorationImage(
-                                                      fit: BoxFit.cover,
-                                                      image: NetworkImage(
-                                                          desafios[index]
-                                                              ['img']))),
-                                            )),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Expanded(
-                                          flex: 8,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text(
-                                                desafios[index]['titulo'],
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                        Row(
+                                          children: <Widget>[
+                                            Expanded(
+                                                flex: 4,
+                                                child: Container(
+                                                  width: double.maxFinite,
+                                                  height: 100,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  5)),
+                                                      image: DecorationImage(
+                                                          fit: BoxFit.cover,
+                                                          image: NetworkImage(
+                                                              desafios[index]
+                                                                  ['img']))),
+                                                )),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            Expanded(
+                                              flex: 8,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Text(
+                                                    desafios[index]['titulo'],
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Divider(),
+                                                  Text(desafios[index]
+                                                      ['descricao']),
+                                                  Divider(),
+                                                  Text(
+                                                    desafios[index]['pontos'] +
+                                                        " pontos",
+                                                    style:
+                                                        TextStyle(fontSize: 20),
+                                                  )
+                                                ],
                                               ),
-                                              Divider(),
-                                              Text(
-                                                  desafios[index]['descricao']),
-                                              Divider(),
-                                              Text(
-                                                desafios[index]['pontos'] +
-                                                    " p",
-                                                style: TextStyle(fontSize: 20),
-                                              )
-                                            ],
-                                          ),
+                                            )
+                                          ],
                                         )
                                       ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ));
+                                    ),
+                                  ),
+                                )));
                       },
                     )
                   ],
