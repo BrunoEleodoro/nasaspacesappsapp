@@ -1,3 +1,4 @@
+import 'package:app/pages/default_pages/sucess/sucess.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app/pages/default_pages/failure/failure.dart';
@@ -43,7 +44,11 @@ class _ParticiparState extends State<Participar> {
     // print(res['response'][0]);
     if (res['status'] == 200) {
       // Navigator.pushReplacementNamed(context, '/home');
-      Navigator.pop(context);
+      Provider.of<SucessNotifier>(context, listen: true)
+          .displaySucess("Success");
+      Future.delayed(Duration(seconds: 2), () {
+        Navigator.pop(context);
+      });
     } else {
       Provider.of<FailureNotifier>(context, listen: true)
           .displayFailure("Houston we have a problem");
@@ -106,7 +111,7 @@ class _ParticiparState extends State<Participar> {
                     child: MaterialButton(
                       // minWidth: double.maxFinite,
                       color: Colors.orange,
-                      onPressed: () {},
+                      onPressed: participarClicked,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15))),
                       child: Text('ACEITAR O DESAFIO'),
